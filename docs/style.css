@@ -589,3 +589,61 @@ footer a {
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
+
+/* Hero Screenshot */
+.hero-screenshot {
+  width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Screenshots Section */
+.screenshots-section {
+  padding: 4rem 2rem;
+  background-color: #f8fafc;
+}
+
+.screenshots-section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.screenshots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  margin-top: 3rem;
+}
+
+.screenshot-item {
+  background-color: white;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.screenshot-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.screenshot-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.screenshot-item h3 {
+  padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+  font-size: 1.25rem;
+  color: #1e293b;
+}
+
+.screenshot-item p {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+  color: #64748b;
+  font-size: 0.95rem;
+}
