@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ninja Test Calculator - Statistical Significance Testing</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/icon_128.png">
+</head>
+
+<body>
+  <nav>
+    <a href="index.html" class="logo">
+      <img src="assets/icon_48.png" alt="Ninja Test Calculator Logo" width="48" height="48">
+      <span>Ninja Test Calculator</span>
+    </a>
+    <div class="links">
+      <a href="#decision-tree">Find Your Test</a>
+      <a href="#features">Features</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="https://github.com/jatacid/ninja-test-calculator" class="github-link">GitHub</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-content">
+      <h1>Statistical Significance <br>Made Simple</h1>
+      <p>The layman-friendly A/B testing calculator. Start with your metric, not the math.</p>
+      <p class="hero-subtext">Choosing the right statistical test is crucial for accurate results. Ninja Test Calculator guides you to the correct method based on your data type.</p>
+      <div class="cta-buttons">
+        <a href="#decision-tree" class="btn primary-btn">Find the Right Test</a>
+        <a href="#" class="store-badge-link">
+          <img src="assets/chrome_badge.png" alt="Available in the Chrome Web Store" width="206" height="58">
+        </a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="hero-placeholder-box"></div>
+    </div>
+  </header>
+
+  <section id="decision-tree" class="decision-section">
+    <div class="container">
+      <h2>Which Statistical Test Do You Need?</h2>
+      <p class="subtitle">Select your metric type to find the perfect statistical method.</p>
+
+      <div class="wizard-trigger-container">
+        <button id="startWizardBtn" class="btn primary-btn">Help me figure it out</button>
+      </div>
+
+      <div id="inSituWizard" class="in-situ-wizard hidden">
+        <!-- Wizard content injected here -->
+      </div>
+
+      <div class="decision-container">
+        <div class="decision-filters">
+          <button class="filter-btn active" data-filter="all">All Tests</button>
+          <button class="filter-btn" data-filter="binary">Yes/No (Binary)</button>
+          <button class="filter-btn" data-filter="counts">Counts</button>
+          <button class="filter-btn" data-filter="averages">Averages</button>
+          <button class="filter-btn" data-filter="other">Other</button>
+        </div>
+
+        <div class="cards-grid">
+          <!-- Binary / Z-Test -->
+          <div class="card" data-category="binary">
+            <div class="card-icon">⚖️</div>
+            <h3>Yes/No - Binary</h3>
+            <p class="card-desc">Tests binary participation results.</p>
+            <ul class="examples">
+              <li>Conversion rate</li>
+              <li>Click-through rate (CTR)</li>
+              <li>Signup rate</li>
+            </ul>
+            <div class="recommendation">
+              <span>Use:</span> <strong>Z-Test</strong>
+              <span class="badge supported">Available in Extension</span>
+            </div>
+          </div>
+
+          <!-- Counts (Skewed) / Quasi-Poisson -->
+          <div class="card" data-category="counts">
+            <div class="card-icon">📈</div>
+            <h3>Counts (Skewed)</h3>
+            <p class="card-desc">For count data with power users (aggregate totals).</p>
+            <ul class="examples">
+              <li>Reviews per product</li>
+              <li>Social shares per post</li>
+              <li>Items per shopping cart</li>
+            </ul>
+            <div class="recommendation">
+              <span>Use:</span> <strong>Quasi-Poisson Test</strong>
+              <span class="badge supported">Available in Extension</span>
+            </div>
+          </div>
+
+          <!-- Counts (Even) / Poisson -->
+          <div class="card" data-category="counts">
+            <div class="card-icon">🔢</div>
+            <h3>Counts (Even)</h3>
+            <p class="card-desc">Tests differences in event frequencies with predictable patterns.</p>
+            <ul class="examples">
+              <li>Customer calls per hour</li>
+              <li>Server errors per day</li>
+              <li>Newsletter signups per day</li>
+            </ul>
+            <div class="recommendation">
+              <span>Use:</span> <strong>Poisson Test</strong>
+              <span class="badge supported">Available in Extension</span>
+            </div>
+          </div>
+
+          <!-- Average (Skewed) / Welch's T-Test -->
+          <div class="card" data-category="averages">
+            <div class="card-icon">📊</div>
+            <h3>Average (Skewed)</h3>
+            <p class="card-desc">For continuous average metrics with outliers.</p>
+            <ul class="examples">
+              <li>Average order value</li>
+              <li>Average session duration</li>
+              <li>Average lifetime value</li>
+            </ul>
+            <div class="recommendation">
+              <span>Recommended:</span> <strong>Welch's T-Test</strong>
+              <span class="badge unsupported">Not in Extension - Search Online</span>
+            </div>
+          </div>
+
+          <!-- Average (Normal) / Student's T-Test -->
+          <div class="card" data-category="averages">
+            <div class="card-icon">📐</div>
+            <h3>Average (Normal)</h3>
+            <p class="card-desc">For continuous average metrics with consistent values.</p>
+            <ul class="examples">
+              <li>Average response time</li>
+              <li>Average satisfaction rating</li>
+              <li>Average app load time</li>
+            </ul>
+            <div class="recommendation">
+              <span>Recommended:</span> <strong>Student's T-Test</strong>
+              <span class="badge unsupported">Not in Extension - Search Online</span>
+            </div>
+          </div>
+
+          <!-- Ranked / Mann-Whitney U -->
+          <div class="card" data-category="other">
+            <div class="card-icon">🔀</div>
+            <h3>Ranked/Ordinal</h3>
+            <p class="card-desc">For non-normal continuous metrics or ordinal rankings.</p>
+            <ul class="examples">
+              <li>Satisfaction ratings (1-5)</li>
+              <li>Net Promoter Score</li>
+              <li>Loading speed (outliers)</li>
+            </ul>
+            <div class="recommendation">
+              <span>Recommended:</span> <strong>Mann-Whitney U Test</strong>
+              <span class="badge unsupported">Not in Extension - Search Online</span>
+            </div>
+          </div>
+
+          <!-- Categorical / Chi-Square -->
+          <div class="card" data-category="other">
+            <div class="card-icon">🎲</div>
+            <h3>Categorical (3+)</h3>
+            <p class="card-desc">For comparing distributions across multiple categories.</p>
+            <ul class="examples">
+              <li>Product category selection</li>
+              <li>Payment method choice</li>
+              <li>User segment distribution</li>
+            </ul>
+            <div class="recommendation">
+              <span>Recommended:</span> <strong>Chi-Square Test</strong>
+              <span class="badge unsupported">Not in Extension - Search Online</span>
+            </div>
+          </div>
+
+          <!-- Assumption-Free / Bootstrap -->
+          <div class="card" data-category="other">
+            <div class="card-icon">🔄</div>
+            <h3>Assumption-Free</h3>
+            <p class="card-desc">For any metric without distributional assumptions.</p>
+            <ul class="examples">
+              <li>Complex business metrics</li>
+              <li>Median metrics</li>
+              <li>Percentile metrics</li>
+            </ul>
+            <div class="recommendation">
+              <span>Recommended:</span> <strong>Bootstrap/Permutation</strong>
+              <span class="badge unsupported">Not in Extension - Search Online</span>
+            </div>
+          </div>
+
+          <!-- Percentage Calculator -->
+          <div class="card" data-category="other">
+            <div class="card-icon">％</div>
+            <h3>Percentage Calculator</h3>
+            <p class="card-desc">Quickly calculate percentages, increases, and decreases.</p>
+            <ul class="examples">
+              <li>% change between values</li>
+              <li>What is X% of Y?</li>
+              <li>X is what % of Y?</li>
+            </ul>
+            <div class="recommendation">
+              <span>Recommended:</span> <strong>Percentage Calculator</strong>
+              <span class="badge supported">Available in Extension</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="features">
+    <div class="container">
+      <h2>Powerful Features</h2>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="icon">⚡</div>
+          <h3>Instant Calculations</h3>
+          <p>Get p-values, confidence intervals, and lift estimates instantly as you type.</p>
+        </div>
+        <div class="feature-item">
+          <div class="icon">🎯</div>
+          <h3>Smart Detection</h3>
+          <p>Capture numbers directly from your webpage using an OCR screenshotter to save time copy-pasting.</p>
+        </div>
+        <div class="feature-item">
+          <div class="icon">📱</div>
+          <h3>Side Panel Access</h3>
+          <p>Always available in your browser side panel without blocking your view.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>Made with <span class="heart">❤</span> for people who love experimentation. Licensed under Apache 2.0.</p>
+      <p>
+        <a href="privacy.html">Privacy Policy</a> |
+        <a href="https://github.com/jatacid/ninja-test-calculator">GitHub</a> |
+        <a href="https://www.paypal.com/donate/?hosted_button_id=9VFG2KJ8HW6EW" target="_blank">Donate</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

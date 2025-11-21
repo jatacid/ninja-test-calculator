@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ninja Test Calculator</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <div id="app">
+  <div class="ntc-header">
+    <div class="ntc-tabs">
+      <div class="ntc-tabs-row">
+        <button class="ntc-tab-btn active" data-tab="about">About</button>
+        <button class="ntc-tab-btn" data-tab="z-test">Z-Test</button>
+        <button class="ntc-tab-btn" data-tab="poisson">Poisson</button>
+        <button class="ntc-tab-btn" data-tab="percentages">Percentages</button>
+        <button id="resetBtn" class="reset-tab" title="Clear all data">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h18"></path>
+            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="ntc-content" class="ntc-content">
+
+      <!-- Shared Tab Headers and Field Descriptors (moved to top for all tabs) -->
+      <div class="shared-tab-content" data-tab="shared">
+        <!-- Z-Test Tab Header -->
+        <div class="tab-content-header hidden" data-tab="z-test">
+          <div class="tab-header">
+            <h2>Z-Test</h2>
+            <p>Use for yes/no metrics like conversion rates, click-through rates (normalised once-per), or any binary outcome where the denominators either do or don't complete an action.</p>
+          </div>
+        </div>
+
+        <!-- Poisson Tab Header -->
+        <div class="tab-content-header hidden" data-tab="poisson">
+          <div class="tab-header">
+            <h2>Poisson Test</h2>
+            <p>Use for count data metrics. Adjust the dispersion factor below to more closely match your data distribution via a Quasi-Poisson test.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- About Tab Content with Callout Panels -->
+      <div class="about-content" data-tab="about">
+        <div class="about-header">
+          <h2>Welcome to Ninja Test Calculator</h2>
+          <p>Check what type of metric you want to analyze and open the appropriate statistical test.</p>
+        </div>
+          <div class="callout-panels">
+          <div class="callout-panel" data-target-tab="z-test">
+            <div class="title-row">
+              <span class="callout-icon">⚖️</span>
+              <h3>Yes/No - Binary</h3>
+            </div>
+            <h4>Tests binary participation results</h4>
+            <ul class="metric-examples">
+              <li><strong>Conversion rate</strong> (did they buy or not)</li>
+              <li><strong>Add-to-cart rate</strong> (did user add at least one item)</li>
+              <li><strong>Click-through rate</strong> (CTR) (clicked the promo banner or not)</li>
+              <li><strong>Checkout start rate</strong> (did user start checkout)</li>
+              <li><strong>Signup rate</strong> (did user join loyalty/email list)</li>
+              <li><strong>Cancellation rate</strong> (order cancelled or not)</li>
+            </ul>
+            <button class="callout-button" data-tab-to="z-test">Open Z-Test</button>
+          </div>
+
+          <div class="callout-panel" data-target-tab="poisson">
+            <div class="title-row">
+              <span class="callout-icon">📈</span>
+              <h3>Counts (Skewed) - Quasi-Poisson</h3>
+            </div>
+            <h4>For count data with power users when you only have aggregate totals</h4>
+            <p>Use this test when you have aggregate data (total events and total users) but don't have individual-level counts. Estimate the dispersion factor by matching your metric to the descriptions provided, or by observing how skewed your data appears to be.</p>
+            <p><strong>If you can export individual user-level data:</strong> A Negative Binomial test would be more accurate as it calculates dispersion directly from the variance in your data rather than estimating it.</p>
+            <ul class="metric-examples">
+              <li><strong>Reviews per product</strong> (most products get none, a few get many)</li>
+              <li><strong>Social shares per post</strong> (most posts get none, a few go viral)</li>
+              <li><strong>Items per shopping cart</strong> (most carts have few items, some have many)</li>
+              <li><strong>Support tickets per user</strong> (most users have none, a few have many)</li>
+              <li><strong>Orders placed per user</strong> (where some power users shop many times)</li>
+            </ul>
+            <button class="callout-button" data-tab-to="poisson">Open Quasi-Poisson Test</button>
+          </div>
+
+          <div class="callout-panel" data-target-tab="poisson">
+            <div class="title-row">
+              <span class="callout-icon">🔢</span>
+              <h3>Counts (Evenly Distributed) - Poisson</h3>
+            </div>
+            <h4>Tests differences in event frequencies following predictable patterns. Use a dispersion factor of 1 for even distribution.
+            </h4>
+            <ul class="metric-examples">
+              <li><strong>Customer calls per hour</strong> (steady call center volume)</li>
+              <li><strong>Orders placed per user</strong> (where most users convert the same number of times)</li>
+              <li><strong>Server errors per day</strong> (system reliability monitoring)</li>
+              <li><strong>Customer arrivals per minute</strong> (store traffic patterns)</li>
+              <li><strong>Failed logins per hour</strong> (security monitoring)</li>
+              <li><strong>Software crashes per user</strong> (software stability)</li>
+              <li><strong>Newsletter signups per day</strong> (consistent organic growth)</li>
+            </ul>
+            <button class="callout-button" data-tab-to="poisson">Open Poisson Test</button>
+          </div>
+
+
+
+          <div class="callout-panel info-only no-hover">
+            <div class="title-row">
+              <span class="callout-icon">📊</span>
+              <h3>Average (Skewed) - Welch's T-Test</h3>
+            </div>
+            <h4>For continuous average metrics with outliers</h4>
+            <p>Welch's T-Test compares average values where data has many outliers (like average order value or average session duration). This test handles unequal variances between groups and is more robust to outliers than Student's T-Test.</p>
+            <ul class="metric-examples">
+              <li><strong>Average order value</strong> (some orders much larger)</li>
+              <li><strong>Average session duration</strong> (some sessions extremely long)</li>
+              <li><strong>Average lifetime value</strong> (customer value varies dramatically)</li>
+            </ul>
+          </div>
+
+          <div class="callout-panel info-only no-hover">
+            <div class="title-row">
+              <span class="callout-icon">📐</span>
+              <h3>Average (Normal) - Student's T-Test</h3>
+            </div>
+            <h4>For continuous average metrics with consistent values</h4>
+            <p>Student's T-Test compares average values where data clusters consistently around the mean (like average page load time or average satisfaction ratings). This test assumes equal variances between groups and is ideal for normally distributed data.</p>
+            <ul class="metric-examples">
+              <li><strong>Average response time</strong> (customer service calls)</li>
+              <li><strong>Average satisfaction rating</strong> (1-5 star surveys)</li>
+              <li><strong>Average app load time</strong> (consistent performance)</li>
+            </ul>
+          </div>
+
+          <div class="callout-panel info-only no-hover">
+            <div class="title-row">
+              <span class="callout-icon">🔀</span>
+              <h3>Ranked/Ordinal - Mann-Whitney U Test</h3>
+            </div>
+            <h4>For non-normal continuous metrics or ordinal rankings</h4>
+            <p>Mann-Whitney U test compares metrics that don't follow a normal distribution or are ordinal in nature (ranked data). This non-parametric test compares the ranks of observations rather than their actual values, making it robust to outliers and distributional assumptions.</p>
+            <ul class="metric-examples">
+              <li><strong>Time on site</strong> (heavily right-skewed distribution)</li>
+              <li><strong>Satisfaction ratings</strong> (ordinal scale 1-5 stars)</li>
+              <li><strong>Revenue per user</strong> (when extremely skewed with outliers)</li>
+              <li><strong>Pages viewed per session</strong> (count data that's better as ranked)</li>
+              <li><strong>Net Promoter Score</strong> (ordinal 0-10 scale)</li>
+              <li><strong>Loading speed</strong> (often has extreme outliers)</li>
+            </ul>
+          </div>
+
+          <div class="callout-panel info-only no-hover">
+            <div class="title-row">
+              <span class="callout-icon">📉</span>
+              <h3>Counts (Skewed) - Negative Binomial</h3>
+            </div>
+            <h4>For highly skewed count data when you have individual-level data</h4>
+            <p>Negative Binomial test analyzes count data with extreme power users where you need to calculate dispersion from raw individual-level data (not just aggregates). Requires access to the distribution of counts per user to properly estimate the dispersion parameter.</p>
+            <ul class="metric-examples">
+              <li><strong>Reviews per user</strong> (calculating variance from each user's count)</li>
+              <li><strong>Social shares per post</strong> (analyzing distribution of shares)</li>
+              <li><strong>Items per cart</strong> (using raw cart size data)</li>
+            </ul>
+            <p style="margin-top: 10px;"><em>If you only have aggregate totals (sum of events, user counts) without individual distributions, use the Quasi-Poisson test above to estimate dispersion.</em></p>
+          </div>
+
+          <div class="callout-panel info-only no-hover">
+            <div class="title-row">
+              <span class="callout-icon">🎲</span>
+              <h3>Categorical (3+ Options) - Chi-Square Test</h3>
+            </div>
+            <h4>For comparing distributions across multiple categories</h4>
+            <p>Chi-Square test analyzes outcomes with three or more categories (not just yes/no) to determine if the distribution across categories differs between variants. Perfect for testing which option users prefer when there are multiple choices.</p>
+            <ul class="metric-examples">
+              <li><strong>Product category selection</strong> (electronics, clothing, home, sports)</li>
+              <li><strong>Payment method choice</strong> (credit card, PayPal, Apple Pay, bank transfer)</li>
+              <li><strong>User segment distribution</strong> (new, returning, loyal, churned)</li>
+              <li><strong>Exit page testing</strong> (which of 5+ pages do users exit from)</li>
+              <li><strong>Feature usage</strong> (which of multiple features did they engage with)</li>
+              <li><strong>Content preference</strong> (video, article, infographic, podcast)</li>
+            </ul>
+          </div>
+
+          <div class="callout-panel info-only no-hover">
+            <div class="title-row">
+              <span class="callout-icon">🔄</span>
+              <h3>Assumption-Free - Bootstrap/Permutation Test</h3>
+            </div>
+            <h4>For any metric without distributional assumptions</h4>
+            <p>Bootstrap and permutation tests are modern, assumption-free approaches that work for any type of metric. They use computational resampling methods rather than mathematical formulas, making them extremely flexible and robust. Increasingly popular in tech companies for complex metrics.</p>
+            <ul class="metric-examples">
+              <li><strong>Complex business metrics</strong> (combinations of multiple factors)</li>
+              <li><strong>Median metrics</strong> (when you care about the median rather than mean)</li>
+              <li><strong>Percentile metrics</strong> (95th percentile load time)</li>
+              <li><strong>Ratio metrics</strong> (revenue per visit)</li>
+              <li><strong>Any skewed metric</strong> (when you don't know the distribution)</li>
+              <li><strong>Small sample sizes</strong> (when parametric assumptions don't hold)</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Shared Inputs Block (used by both analysis and pretest tabs) -->
+      <div class="inputs-accordion-container hidden" data-tab="shared">
+        <details class="inputs-details">
+          <summary class="inputs-summary">Inputs</summary>
+          <div class="inputs-content">
+            <div class="input-group">
+              <div class="label-container">
+                <label for="testDuration" class="duration-label">Days of data</label>
+                <div class="result-label">How many days of data are you entering below</div>
+              </div>
+              <input type="number" id="testDuration" placeholder="1" value="7" class="duration-input" min="1" step="1">
+            </div>
+            <div class="input-group">
+              <div class="label-container">
+                <label for="numberOfVariations" class="duration-label">Number of variations</label>
+                <div class="result-label">Slide to select between 2-5 test variations (A, B, C, D, E)</div>
+              </div>
+              <div class="slider-container">
+                <input type="range" id="numberOfVariations" class="confidence-slider" min="2" max="5" value="2" step="1">
+                <div class="confidence-display">
+                  <span id="variationsValue">2</span>
+                </div>
+              </div>
+            </div>
+            <div class="input-group hidden" id="strictnessAdjustmentGroup">
+              <div class="label-container">
+                <label for="strictnessAdjustment" class="duration-label">Strictness adjustment</label>
+                <div class="result-label">Applies bonferroni correction when testing 3+ variations to reduce false positive risk.</div>
+              </div>
+              <div class="checkbox-container">
+                <input type="checkbox" id="strictnessAdjustment">
+              </div>
+            </div>
+            <div class="input-group">
+              <div class="label-container">
+                <label for="confidenceLevel" class="duration-label">Confidence Level</label>
+                <div class="result-label">How confident do you want to be in the result? Ie avoiding false positives (T1 errors).</div>
+              </div>
+              <div class="slider-container">
+                <input type="range" id="confidenceLevel" class="confidence-slider" min="65" max="99" value="95" step="1">
+                <div class="confidence-display">
+                  <span id="confidenceValue">95%</span>
+                </div>
+              </div>
+            </div>
+            <div class="input-group">
+              <div class="label-container">
+                <label for="statisticalPower" class="duration-label">Statistical Power</label>
+                <div class="result-label">Probability of detecting a true effect. Used for sample size estimations, ie avoiding false negatives (T2 errors).</div>
+              </div>
+              <div class="slider-container">
+                <input type="range" id="statisticalPower" class="confidence-slider" min="70" max="95" value="80" step="1">
+                <div class="confidence-display">
+                  <span id="powerValue">80%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- Poisson Dispersion Parameter -->
+      <div class="test-duration-section hidden" data-tab="poisson-only">
+        <div class="collapse-content">
+          <div class="input-group">
+            <div class="label-container">
+              <label for="poissonDispersion" class="duration-label">Dispersion Factor (φ)</label>
+              <div class="result-label" id="dispersionDescription">Adjust based on your data distribution. 1.0 = true Poisson (even distribution). Higher values = more skewed with power users.</div>
+            </div>
+            <div class="slider-container">
+              <input type="range" id="poissonDispersion" class="confidence-slider" min="1" max="10" value="1" step="1">
+              <div class="confidence-display">
+                <span id="poissonDispersionValue">φ = 1.0</span>
+              </div>
+            </div>
+          </div>
+          
+
+        </div>
+      </div>
+
+
+
+
+      <!-- Shared Control Variant Table (used by both analysis and pretest tabs) -->
+      <div class="variants-table-container" data-tab="shared">
+        <table class="variants-table control-table">
+          <thead>
+            <tr>
+              <th>Control</th>
+              <th>Denominator</th>
+              <th>Numerator</th>
+              <th>Rate %</th>
+              <th>Rate<br>(per)</th>
+              <th>Lift <br>vs next best</th>
+              <th>Lift<br>(in count)</th>
+              <th>Extra<br>vs next best</th>
+              <th style="visibility: hidden;">P-value</th>
+              <th style="visibility: hidden;">Confidence<br></th>
+              <th class="spacer-column"></th>
+            </tr>
+          </thead>
+          <tbody id="controlTableBody">
+            <tr data-variant="A">
+              <td class="variant-name">
+                <strong>A</strong>
+              </td>
+              <td class="data-cell-with-capture">
+                <button class="capture-field-btn" data-variant="A" data-field="visitors" title="Select from page" tabindex="-1">𖦏</button>
+                <input type="number" id="visitorsA" placeholder="0" value="1000" class="data-input">
+              </td>
+              <td class="data-cell-with-capture">
+                <button class="capture-field-btn" data-variant="A" data-field="conversions" title="Select from page" tabindex="-1">𖦏</button>
+                <input type="number" id="conversionsA" placeholder="0" value="10" class="data-input">
+              </td>
+              <td class="conversion-rate-percent" id="rateAPercent">0.000%</td>
+              <td class="conversion-rate-raw" id="rateARaw">0.000000</td>
+              <td class="lift-value" id="liftA">-</td>
+              <td class="lift-count" id="liftCountA">-</td>
+              <td class="additional-conversions" id="additionalA">-</td>
+              <td style="visibility: hidden;" class="p-value" id="pValueA">-</td>
+              <td style="visibility: hidden;" class="confidence-observed" id="confidenceA">-</td>
+
+              <td class="spacer-cell"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+
+      <!-- Variants Block (Test Variants Table) -->
+      <div class="variants-table-container hidden" data-tab="z-test">
+        <table class="variants-table test-variants-table">
+          <thead>
+            <tr>
+              <th>Variant</th>
+              <th>Denominator</th>
+              <th>Numerator</th>
+              <th>Rate %</th>
+              <th>Rate<br>(per)</th>
+              <th>Lift<br>vs A</th>
+              <th>Lift<br>(in count)</th>
+              <th>Extra<br>(raw)</th>
+              <th>P-value</th>
+              <th>Confidence<br>(vs A)</th>
+              <th class="spacer-column"></th>
+            </tr>
+          </thead>
+          <tbody id="variantsTableBody">
+            <tr data-variant="B">
+              <td class="variant-name">
+                <strong>B</strong>
+              </td>
+              <td class="data-cell-with-capture">
+                <button class="capture-field-btn" data-variant="B" data-field="visitors" title="Select from page" tabindex="-1">𖦏</button>
+                <input type="number" id="visitorsB" placeholder="0" value="1000" class="data-input">
+              </td>
+              <td class="data-cell-with-capture">
+                <button class="capture-field-btn" data-variant="B" data-field="conversions" title="Select from page" tabindex="-1">𖦏</button>
+                <input type="number" id="conversionsB" placeholder="0" value="12" class="data-input">
+              </td>
+              <td class="conversion-rate-percent" id="rateBPercent">0.000%</td>
+              <td class="conversion-rate-raw" id="rateBRaw">0.000000</td>
+              <td class="lift-value" id="liftB">-</td>
+              <td class="lift-count" id="liftCountB">-</td>
+              <td class="additional-conversions" id="additionalB">-</td>
+              <td class="p-value" id="pValueB">-</td>
+              <td class="confidence-observed" id="confidenceB">-</td>
+              <td class="spacer-cell"></td>
+            </tr>
+            <!-- Dynamic rows for variants C, D, E will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Analysis Cards Container (shared across analysis tabs) -->
+      <div class="analysis-cards-container hidden" data-tab="shared">
+        <div class="analysis-card" id="leadingVariantCard">
+          <div class="card-header">
+            <h4>Leading Variant</h4>
+          </div>
+          <div class="card-content">
+            <div class="sample-size-analysis">
+              <div class="analysis-item">
+                <span class="analysis-label">Variant:</span>
+                <span id="leadingVariant" class="analysis-value">-</span>
+              </div>
+              <div class="analysis-item">
+                <span class="analysis-label">Lift vs Next Best</span>
+                <span id="leadingVs" class="analysis-value">-</span>
+              </div>
+              <div class="analysis-item">
+                <span class="analysis-label">Lift vs A</span>
+                <span id="leadingVsA" class="analysis-value">-</span>
+              </div>
+              <div class="analysis-item">
+                <span class="analysis-label">Monthly extras
+                    <span style="cursor:pointer" title="If this feature went to all users, in a 30 day period it could see this amount">ⓘ</span>
+                </span>
+                <span id="leadingMonthlyExtras" class="analysis-value">-</span>
+              </div>
+              <div class="analysis-item">
+                <span class="analysis-label">Confidence:
+                    <span style="cursor:pointer" title="Shows how confident we are that the observed difference is real and not due to random chance. For example, 95% confidence means there's only a 5% chance the difference is random. Higher percentages indicate stronger evidence. See the confidence interval below for the range of plausible effect sizes.">ⓘ</span>
+                </span>
+                <span id="leadingConfidence" class="analysis-value">-</span>
+              </div>
+              <div class="analysis-item">
+                <span class="analysis-label">Confidence Interval
+                    <span style="cursor:pointer" title="A range of values within which the true difference in conversion rates is likely to fall. For example, a 95% confidence interval of [-0.07%, +2.07%] means we are 95% confident the true lift is somewhere in this range.">ⓘ</span>
+                </span>
+                <span id="leadingConfidenceInterval" class="analysis-value">-</span>
+              </div>
+              <div class="analysis-item">
+                <span class="analysis-label">P-value vs</span>
+                <span id="leadingPValue" class="analysis-value">-</span>
+              </div>
+              <div class="analysis-item">
+                <span class="analysis-label">Summary:</span>
+                <span id="leadingLaymanSummary" class="analysis-value summary-text">-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="analysis-card" id="durationCard">
+          <div class="card-header">
+            <h4>Test Duration and Sample Size</h4>
+            <p id="sampleSizeSubheading" class="subheading">-</p>
+          </div>
+          <div class="card-content">
+            <div class="sample-size-analysis">
+              <div class="analysis-item">
+                <span class="analysis-label">Sample size needed per variant:</span>
+                <span id="exactSampleSize" class="analysis-value">-</span>
+              </div>
+              <div class="analysis-item">
+                <span class="analysis-label">Total duration needed (days):</span>
+                <span id="totalDuration" class="analysis-value">-</span>
+              </div>
+              <div class="analysis-item">
+                <span class="analysis-label">Remaining (days):</span>
+                <span id="remainingDays" class="analysis-value">-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Methodology Accordion (shared across calculation tabs) -->
+      <div class="methodology-accordion-container hidden" data-tab="shared">
+        <details class="methodology-details">
+          <summary class="methodology-summary">Methodology</summary>
+          <div class="methodology-content" id="methodology-content">
+            <!-- This will be populated by individual calculation methods -->
+          </div>
+        </details>
+      </div>
+
+      <!-- Tab Content Sections (now just contain their specific content) -->
+      <div class="tab-content hidden" data-tab="z-test">
+        <!-- Z-Test content will be handled by shared section above -->
+      </div>
+      
+      <div class="tab-content hidden" data-tab="poisson">
+        <!-- Poisson content will be handled by shared section above -->
+      </div>
+
+      <!-- Percentages Tab Content -->
+      <div class="tab-content hidden" data-tab="percentages">
+        <div class="tab-header">
+          <h2>Percentage Calculator</h2>
+          <p>Quick calculations for converting percentages and analyzing changes.</p>
+        </div>
+        <!-- Percentage calculator content -->
+        <div class="percentage-calculator">
+          <!-- What is X% of Y -->
+          <div class="percentage-section">
+            <div class="percentage-sentence">
+              <span class="sentence-text">What is</span>
+              <input type="number" id="percentX" class="inline-input" step="0.01">
+              <span class="sentence-text">% of</span>
+              <input type="number" id="valueY" class="inline-input" step="0.01">
+              <span class="sentence-text">?</span>
+            </div>
+            <div class="result-line">
+              <div id="resultXY" class="result-value">-</div>
+            </div>
+          </div>
+
+          <!-- X is what percent of Y -->
+          <div class="percentage-section">
+            <div class="percentage-sentence">
+              <input type="number" id="valueX" class="inline-input" step="0.01">
+              <span class="sentence-text">is what percent of</span>
+              <input type="number" id="totalY" class="inline-input" step="0.01">
+              <span class="sentence-text">?</span>
+            </div>
+            <div class="result-line">
+              <div id="resultPercent" class="result-value">-</div>
+            </div>
+          </div>
+
+          <!-- Percentage increase/decrease -->
+          <div class="percentage-section">
+            <div class="percentage-sentence">
+              <span class="sentence-text">What's the % change</span>
+              <span class="sentence-text">from</span>
+              <input type="number" id="originalValue" class="inline-input" step="0.01">
+              <span class="sentence-text">to</span>
+              <input type="number" id="newValue" class="inline-input" step="0.01">
+              <span class="sentence-text">?</span>
+            </div>
+            <div class="result-line">
+              <div id="resultChange" class="result-value">-</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  <script src="jsstat.min.js"></script>
+  <script src="sidepanelAndStats-shared.js"></script>
+  <script src="sidepanelAndStats-ocrCapture.js"></script>
+  <script src="sidepanelAndStats-ztest.js"></script>
+  <script src="sidepanelAndStats-poisson.js"></script>
+  <script src="sidepanelAndStats-percentages.js"></script> 
+
+
+
+</body>
+</html>

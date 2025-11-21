@@ -1,0 +1,61 @@
+{
+  "manifest_version": 3,
+  "name": "Ninja Test Calculator",
+  "description": "Statistical AB test calculator with point-and-click data capture functionality",
+  "version": "1.0.0",
+  "action": {
+    "default_title": "Ninja Test Calculator",
+    "default_icon": {
+      "16": "assets/icons/icon_16.png",
+      "32": "assets/icons/icon_32.png",
+      "48": "assets/icons/icon_48.png",
+      "128": "assets/icons/icon_128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "icons": {
+    "16": "assets/icons/icon_16.png",
+    "32": "assets/icons/icon_32.png",
+    "48": "assets/icons/icon_48.png",
+    "128": "assets/icons/icon_128.png"
+  },
+  "permissions": [
+    "sidePanel",
+    "activeTab",
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "tesseract/inject/sandbox.html",
+        "tesseract/inject/sandbox.js", 
+        "tesseract/tesseract.min.js",
+        "tesseract/worker.min.js",
+        "tesseract/tesseract-core-simd-lstm.wasm.js",
+        "tesseract/tesseract-core-simd-lstm.wasm"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
+  }
+}
