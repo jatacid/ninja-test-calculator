@@ -171,11 +171,17 @@ nav {
   background-color: #f1f5f9;
 }
 
+/* Mobile only - border radius and shadow */
+@media (max-width: 767px) {
+  .hero-image img {
+    border-radius: 0.75rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+}
+
 .hero-image img {
   width: 100%;
   height: auto;
-  border-radius: 0.75rem;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 /* Simple Grey Placeholder */
@@ -621,8 +627,8 @@ footer a {
     max-width: none;
     height: auto;
     /* Auto height to show full image */
-    max-height: none;
-    /* Remove height constraint */
+    max-height: 80vh;
+    /* Limit height to 80% of viewport height */
     object-fit: contain;
     margin: 0;
     border-radius: 0;
