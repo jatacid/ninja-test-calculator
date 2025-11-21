@@ -79,17 +79,29 @@ nav {
     flex-direction: row;
     text-align: left;
     justify-content: space-between;
-    padding: 6rem 4rem;
+    padding: 0;
+    /* Remove all padding */
+    align-items: stretch;
+    /* Make children stretch to full height */
   }
 
   .hero-content {
     max-width: 50%;
+    align-self: center;
+    /* Vertically center the content */
+    padding: 6rem 2rem 6rem 4rem;
+    /* Add padding to content instead */
   }
 
   .hero-image {
-    width: 45%;
-    /* Force width so it doesn't collapse without an image */
-    max-width: 45%;
+    width: 40%;
+    /* Take up 40% of hero width */
+    max-width: 40%;
+    display: flex;
+    align-items: stretch;
+    /* Stretch to full height */
+    margin: 0;
+    padding: 0;
   }
 }
 
@@ -593,9 +605,31 @@ footer a {
 /* Hero Screenshot */
 .hero-screenshot {
   width: 100%;
+  max-width: 500px;
   height: auto;
+  object-fit: contain;
   border-radius: 0.75rem;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  /* Center on mobile */
+}
+
+@media (min-width: 768px) {
+  .hero-screenshot {
+    width: 100%;
+    /* Fill the full width of hero-image container (40%) */
+    max-width: none;
+    height: auto;
+    /* Auto height to show full image */
+    max-height: none;
+    /* Remove height constraint */
+    object-fit: contain;
+    margin: 0;
+    border-radius: 0;
+    /* No border radius */
+    box-shadow: none;
+    /* No shadow */
+  }
 }
 
 /* Screenshots Section */
