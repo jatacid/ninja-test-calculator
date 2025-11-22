@@ -31,6 +31,34 @@ nav {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+@media (max-width: 767px) {
+  nav {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .logo {
+    font-size: 1rem;
+  }
+
+  .logo span {
+    display: none;
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .links a {
+    margin-left: 0;
+    font-size: 0.9rem;
+  }
+}
+
 .logo {
   display: flex;
   align-items: center;
@@ -131,6 +159,27 @@ nav {
     margin-top: 2rem;
     align-items: center;
     justify-content: flex-start;
+  }
+}
+
+@media (max-width: 767px) {
+  .cta-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 300px;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .store-badge-link img {
+    width: 100%;
+    height: auto;
+    max-width: 206px;
   }
 }
 
