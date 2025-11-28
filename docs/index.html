@@ -16,41 +16,23 @@
       <img src="assets/icon_48.png" alt="Ninja Test Calculator Logo" width="48" height="48">
       <span>Ninja Test Calculator</span>
     </a>
-    <div class="links">
-      <a href="#decision-tree">Find Your Test</a>
-      <a href="#features">Features</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="https://github.com/jatacid/ninja-test-calculator" class="github-link">GitHub</a>
-    </div>
   </nav>
 
   <header class="hero">
-    <div class="hero-content">
-      <h1>Statistical Significance <br>Made Simple</h1>
-      <p>The layman-friendly A/B testing calculator. Start with your metric, not the math.</p>
-      <p class="hero-subtext">Choosing the right statistical test is crucial for accurate results. Ninja Test Calculator guides you to the correct method based on your data type.</p>
-      <div class="cta-buttons">
-        <a href="#decision-tree" class="btn primary-btn">Find the Right Test</a>
-        <a href="#" class="store-badge-link">
-          <img src="assets/chrome_badge.png" alt="Available in the Chrome Web Store" width="206" height="58">
-        </a>
+      <div class="hero-content">
+        <h1>Statistical Significance <br>Made Simple</h1>
+        <p>The layman-friendly A/B testing calculator. Start with your metric, not the math.</p>
+        <div class="cta-buttons">
+          <a href="https://github.com/jatacid/ninja-test-calculator/releases" class="btn primary-btn">Download Extension</a>
+        </div>
       </div>
-    </div>
-    <div class="hero-image">
-      <img src="assets/screenshot-ztest.png" alt="Ninja Test Calculator Z-Test Interface" class="hero-screenshot">
-    </div>
-  </header>
+    </header>
 
   <section id="decision-tree" class="decision-section">
     <div class="container">
       <h2>Which Statistical Test Do You Need?</h2>
       <p class="subtitle">Select your metric type to find the perfect statistical method.</p>
-
-      <div class="wizard-trigger-container">
-        <button id="startWizardBtn" class="btn primary-btn">Help me figure it out</button>
-      </div>
-
-      <div id="inSituWizard" class="in-situ-wizard hidden">
+      <div id="inSituWizard" class="in-situ-wizard">
         <!-- Wizard content injected here -->
       </div>
 
@@ -242,6 +224,11 @@
       <p class="subtitle">Explore the intuitive interface designed for quick statistical analysis</p>
       <div class="screenshots-grid">
         <div class="screenshot-item">
+          <img src="assets/screenshot-ztest.png" alt="Z-Test Calculator" class="screenshot-img">
+          <h3>Z-Test Calculator</h3>
+          <p>Calculate statistical significance for binary metrics like conversion rates</p>
+        </div>
+        <div class="screenshot-item">
           <img src="assets/screenshot-metrichelp.png" alt="Metric Selection Helper" class="screenshot-img">
           <h3>Smart Metric Guidance</h3>
           <p>Interactive wizard helps you choose the right statistical test for your data</p>
@@ -257,7 +244,7 @@
 
   <footer>
     <div class="container">
-      <p>Made with <span class="heart">❤</span> for people who love experimentation. Licensed under Apache 2.0.</p>
+      <p>Made with <span class="heart">❤</span> for people who love experimentation. Licensed under MIT.</p>
       <p>
         <a href="privacy.html">Privacy Policy</a> |
         <a href="https://github.com/jatacid/ninja-test-calculator">GitHub</a> |

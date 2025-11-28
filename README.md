@@ -18,6 +18,29 @@ Visit our official landing page to find the right statistical test for your data
 
 ## 📥 Installation
 
+### Option 1: Download and Install Manually
+
+1. **Download the Extension**:
+   - Go to the [Releases page](https://github.com/jatacid/ninja-test-calculator/releases).
+   - Download the latest `ninja-test-calculator-vX.X.X.zip` file.
+
+2. **Extract the ZIP**:
+   - Unzip the downloaded file to a folder on your computer.
+
+3. **Open Chrome Extensions**:
+   - Navigate to `chrome://extensions/` in your browser.
+   - Enable **Developer mode** in the top right corner.
+
+4. **Load Unpacked**:
+   - Click **Load unpacked**.
+   - Select the extracted `ninja-test-calculator` folder (containing `manifest.json`).
+
+5. **Pin & Play**:
+   - Pin the extension to your toolbar for easy access.
+   - Click the icon to open the side panel.
+
+### Option 2: For Developers (Clone and Load)
+
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/jatacid/ninja-test-calculator.git

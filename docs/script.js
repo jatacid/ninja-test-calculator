@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Wizard Logic (Sequential Yes/No & Filtering)
-  const startWizardBtn = document.getElementById('startWizardBtn');
   const wizardContainer = document.getElementById('inSituWizard');
   const decisionContainer = document.querySelector('.decision-container');
 
@@ -203,8 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resetBtn.textContent = 'Start Over';
         resetBtn.onclick = () => {
           filterCards('all', 'show');
-          wizardContainer.classList.add('hidden');
-          startWizardBtn.classList.remove('hidden');
+          renderWizardStep('start');
           filterBtns.forEach(b => b.classList.remove('active'));
           document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
         };
@@ -215,13 +213,10 @@ document.addEventListener('DOMContentLoaded', () => {
     wizardContainer.appendChild(stepDiv);
   }
 
-  startWizardBtn.addEventListener('click', () => {
-    startWizardBtn.classList.add('hidden');
-    wizardContainer.classList.remove('hidden');
-    renderWizardStep('start');
-    filterCards('all', 'show'); // Reset to show all initially
-    filterBtns.forEach(b => b.classList.remove('active'));
-    document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
-  });
+  // Start wizard on load
+  renderWizardStep('start');
+  filterCards('all', 'show'); // Reset to show all initially
+  filterBtns.forEach(b => b.classList.remove('active'));
+  document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
 });
 
