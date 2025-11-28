@@ -21,12 +21,24 @@ git push
 # Zip the extension
 
 # Zip the extension
+
+# Prepare releases folder and zip path
+$releasesDir = "releases"
+if (!(Test-Path $releasesDir)) {
+	New-Item -ItemType Directory -Path $releasesDir | Out-Null
+}
 $zipName = "ninja-test-calculator-v$newVersion.zip"
-Compress-Archive -Path "ninja-test-calculator" -DestinationPath $zipName -Force
+$zipPath = Join-Path $releasesDir $zipName
+Compress-Archive -Path "ninja-test-calculator" -DestinationPath $zipPath -Force
+
+# Commit all changes (including new zip and version bump)
+git add .
+git commit -m "Bump version to $newVersion and add release zip"
+git push
 
 # Tag the new version in git
 git tag v$newVersion
 git push origin v$newVersion
 
 # Create GitHub release and upload the zip using gh CLI
-gh release create v$newVersion $zipName --title "Release v$newVersion" --notes "Automated release for version $newVersion"
+gh release create v$newVersion $zipPath --title "Release v$newVersion" --notes "Automated release for version $newVersion"
