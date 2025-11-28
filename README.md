@@ -16,28 +16,25 @@ Visit our official landing page to find the right statistical test for your data
 - **Smart Data Capture**: Point-and-click functionality to capture data directly from your webpage (powered by Tesseract OCR).
 - **Side Panel Integration**: Works seamlessly alongside your browsing experience in the Chrome Side Panel.
 
-## 📥 Installation
+## 📥 Installation & Download
 
-### Option 1: Download and Install Manually
+### Download the Latest Release
 
-1. **Download the Extension**:
-   - Go to the [Releases page](https://github.com/jatacid/ninja-test-calculator/releases).
-   - Download the latest `ninja-test-calculator-vX.X.X.zip` file.
+**Get the latest version here:**
+[Download from Releases](https://github.com/jatacid/ninja-test-calculator/releases)
 
-2. **Extract the ZIP**:
-   - Unzip the downloaded file to a folder on your computer.
+1. Download the latest `ninja-test-calculator-vX.X.X.zip` from the [Releases page](https://github.com/jatacid/ninja-test-calculator/releases).
+2. Unzip the file to a folder on your computer.
+3. Open Chrome and go to `chrome://extensions/`.
+4. Enable **Developer mode** (top right).
+5. Click **Load unpacked** and select the extracted `ninja-test-calculator` folder (containing `manifest.json`).
+6. Pin the extension to your toolbar for easy access.
 
-3. **Open Chrome Extensions**:
-   - Navigate to `chrome://extensions/` in your browser.
-   - Enable **Developer mode** in the top right corner.
+## 📄 License
 
-4. **Load Unpacked**:
-   - Click **Load unpacked**.
-   - Select the extracted `ninja-test-calculator` folder (containing `manifest.json`).
+This project is licensed under the [MIT License](LICENSE).
 
-5. **Pin & Play**:
-   - Pin the extension to your toolbar for easy access.
-   - Click the icon to open the side panel.
+See the LICENSE file for details.
 
 ### Option 2: For Developers (Clone and Load)
 
@@ -65,20 +62,4 @@ Visit our official landing page to find the right statistical test for your data
 4. **Analyze**: Instantly see your Confidence Level, Test Statistic, and P-Value.
 5. **Interpret**: The tool provides clear "Significant" or "Not Significant" results based on your confidence threshold (e.g., 90%, 95%, 99%).
 
-## 📄 License
 
-**Apache License 2.0**
-
-Copyright 2025 jatacid
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
