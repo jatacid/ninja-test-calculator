@@ -29,7 +29,7 @@ if (!(Test-Path $releasesDir)) {
 }
 $zipName = "ninja-test-calculator-v$newVersion.zip"
 $zipPath = Join-Path $releasesDir $zipName
-Compress-Archive -Path "ninja-test-calculator" -DestinationPath $zipPath -Force
+Compress-Archive -Path "ninja-test-calculator\*" -DestinationPath $zipPath -Force
 
 # Commit all changes (including new zip and version bump)
 git add .
